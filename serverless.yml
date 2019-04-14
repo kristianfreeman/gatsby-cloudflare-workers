@@ -20,5 +20,5 @@ functions:
     script: worker
     events:
       - http:
-          url: gatsby-workers.signalnerve.com/*
+          url: ${env:WORKER_ROUTE}
           method: GET

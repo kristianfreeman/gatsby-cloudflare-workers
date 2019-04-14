@@ -1,97 +1,51 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's blog starter
-</h1>
+# Gatsby.js + Cloudflare Workers 🌥👷‍♀️
 
-Kick off your project with this blog boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+This is an example project showing how you can build a website with [Gatsby.js](https://www.gatsbyjs.org/), and serve it at the edge using [Cloudflare Workers](http://bit.ly/gatsby-example-cf-workers-landing), managed via the [Serverless framework](https://serverless.com/).
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+## Why?
 
-## 🚀 Quick start
+Cloudflare Workers allows developers to write and deploy applications at the edge. When a user requests your site, your Worker will serve it directly from one of our [175+ data centers](http://bit.ly/gatsby-example-cf-network) around the world. Static sites are perfect fit for building extremely fast, high availability sites, and Cloudflare's default caching behavior will result in a high cache rate for the bulk of your site. The result is an easy-to-manage site, hosted [at the edge](http://bit.ly/gatsby-example-cf-edge-server), with the ability for further customization via editing the provided [worker script](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/worker.js), [Serverless config file](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/serverless.yml), and [deploy process](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/package.json#L62).
 
-1.  **Create a Gatsby site.**
+## How it works
 
-    Use the Gatsby CLI to create a new site, specifying the blog starter.
+1. The website is built locally using Gatsby (for development instructions, see [`GATSBY_README.md`](https://github.com/signalnerve/gatsby-cloudflare-workers/blob/master/GATSBY_README.md))
+2. The site is published to GitHub on the `gh-pages` branch - see the "Setup" section
+3. A Cloudflare Worker script runs at your domain, and takes the requested path (e.g. `/about`) and requests it from the static version of your site on GitHub, via [jsDelivr](https://www.jsdelivr.com/). (Quick note: jsDelivr is powered by Cloudflare, so you'll get a speed boost by staying within Cloudflare's DNS + caching!)
 
-    ```sh
-    # create a new Gatsby site using the blog starter
-    gatsby new my-blog-starter https://github.com/gatsbyjs/gatsby-starter-blog
-    ```
+## Development
 
-1.  **Start developing.**
+Begin by installing the dependencies for this project (and additionally, install `serverless` and `gatsby` globally if you don't already have them):
 
-    Navigate into your new site’s directory and start it up.
+```
+npm install -g serverless gatsby
+npm install
+```
 
-    ```sh
-    cd my-blog-starter/
-    gatsby develop
-    ```
+Fill out your Cloudflare API and zone details in [`.env`](https://github.com/signalnerve/gatsby-cloudflare-workers/blob/master/.env), using [`.env.example`](https://github.com/signalnerve/gatsby-cloudflare-workers/blob/master/.env) as a reference:
 
-1.  **Open the source code and start editing!**
+```
+cp .env.example .env
+```
 
-    Your site is now running at `http://localhost:8000`!
+Develop your site locally:
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+```
+gatsby develop
+```
 
-    Open the `my-blog-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+When you're ready to deploy, build and deploy to GitHub:
 
-## 🧐 What's inside?
+```
+npm run deploy
+```
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+This builds the site (`gatsby build`) and pushes it to the `gh-pages` branch on GitHub (using [`gh-pages`](https://github.com/tschaub/gh-pages)).
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+Deploy your worker to your Cloudflare account:
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+```
+serverless deploy
+```
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+Go to your configured URL to confirm that your website is being served with Cloudflare Workers!
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-blog)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
