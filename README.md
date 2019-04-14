@@ -2,6 +2,8 @@
 
 This is an example project showing how you can build a website with [Gatsby.js](https://www.gatsbyjs.org/), and serve it at the edge using [Cloudflare Workers](http://bit.ly/gatsby-example-cf-workers-landing), managed via the [Serverless framework](https://serverless.com/).
 
+[![header](./media/header.png)](http://bit.ly/gatsby-example-cf-workers-landing)
+
 ## Why?
 
 Cloudflare Workers allows developers to write and deploy applications at the edge. When a user requests your site, your Worker will serve it directly from one of our [175+ data centers](http://bit.ly/gatsby-example-cf-network) around the world. Static sites are perfect fit for building extremely fast, high availability sites, and Cloudflare's default caching behavior will result in a high cache rate for the bulk of your site. The result is an easy-to-manage site, hosted [at the edge](http://bit.ly/gatsby-example-cf-edge-server), with the ability for further customization via editing the provided [worker script](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/worker.js), [Serverless config file](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/serverless.yml), and [deploy process](https://github.com/signalnerve/gatsby-cloudflare-workers-example/blob/master/package.json#L62).
