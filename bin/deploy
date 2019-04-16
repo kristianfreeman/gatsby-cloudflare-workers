@@ -1,0 +1,7 @@
+source .env
+
+[ -z "$BUCKET_NAME" ] && echo "Missing BUCKET_NAME env var: check .env" && exit 1;
+
+gsutil -m rsync -d public "gs://$BUCKET_NAME"
+gsutil iam ch allUsers:objectViewer "gs://$BUCKET_NAME"
+echo "Your website has been deployed to http://storage.googleapis.com/$BUCKET_NAME"

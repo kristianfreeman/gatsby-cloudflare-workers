@@ -9,8 +9,8 @@ const constructResponse = (response, body, headers = {}) =>
     headers: Object.assign({}, response.headers, headers),
   })
 
-const githubRepo = "signalnerve/gatsby-workers"
-const branch = "gh-pages"
+const bucketName = "gatsby-workers"
+const baseUrl = `http://storage.googleapis.com/${bucketName}`
 
 async function handleRequest(request) {
   const parsedUrl = new URL(request.url)
@@ -20,9 +20,7 @@ async function handleRequest(request) {
     path = "/index.html"
   }
 
-  const response = await fetch(
-    `https://cdn.jsdelivr.net/gh/${githubRepo}@${branch}${path}`
-  )
+  const response = await fetch(`${baseUrl}${path}`)
 
   if (path.endsWith("html")) {
     return constructResponse(response, response.body, {
