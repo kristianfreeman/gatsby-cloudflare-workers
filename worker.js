@@ -21,12 +21,5 @@ async function handleRequest(request) {
   }
 
   const response = await fetch(`${baseUrl}${path}`)
-
-  if (path.endsWith("html")) {
-    return constructResponse(response, response.body, {
-      "Content-Type": "text/html",
-    })
-  } else {
-    return response
-  }
+  return response
 }
