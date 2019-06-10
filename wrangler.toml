@@ -1,0 +1,5 @@
+name = "gatsby-on-workers"
+type = "webpack"
+account_id = "dc56444c4c955a1653106ccf997c1067"
+private = false
+kv-namespaces = ["STATIC_CONTENT"]
