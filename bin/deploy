@@ -1,3 +1,0 @@
-gatsby build
-wrangler upload-static-files STATIC_CONTENT public/
-wrangler publish

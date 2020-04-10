@@ -51,12 +51,13 @@
     "url": "git+https://github.com/gatsby-cloudflare-workers.git"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby clean && gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
+    "start-worker": "npm run build && wrangler preview --watch",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "deploy": "bin/deploy"
+    "deploy": "npm run build && wrangler publish"
   }
 }
