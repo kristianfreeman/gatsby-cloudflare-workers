@@ -23,7 +23,7 @@ npm install -g @cloudflare/wrangler gatsby
 You can use this repository as a template to build your own static site, using the `wrangler generate` command.
 
 ```
-wrangler generate ttps://github.com/signalnerve/gatsby-cloudflare-workers/
+wrangler generate [Worker Name] https://github.com/signalnerve/gatsby-cloudflare-workers/
 ```
 
 If you haven't installed Wrangler yet, try our [Quick Start guide](https://workers.cloudflare.com/docs/quickstart/cli-setup/) for installing Wrangler, and getting up and running with Cloudflare Workers!
